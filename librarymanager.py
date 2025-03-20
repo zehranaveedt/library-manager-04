@@ -144,15 +144,6 @@ def add_book(title, author, publication_year, genre, read_status):
         'read_status': read_status,
         'added_date': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
-def add_book(title, author, publication_year, genre, read_status):
-    book = {
-        'title': title,
-        'author': author,
-        'publication_year': publication_year,
-        'genre': genre,
-        'read_status': read_status,
-        'added_date': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    }
     st.session_state.library.append(book)
     save_library()
     st.session_state.book_added = True
@@ -254,7 +245,7 @@ def create_visulation(states):
             x ='Genre',
             y= 'Count',
             color= 'Count',
-            color_continous_scale=px.colors.sequential.Blues
+            color_continuous_scale=px.colors.sequential.Blues
         )
         fig_genres.update_layout(
             title_text='Book by publication decade',
@@ -266,7 +257,7 @@ def create_visulation(states):
     if states['decades']:
         decades_df = pd.DataFrame({
             'Decade': [f"{decade}s " for decade in states['decades'].keys()],
-            'Count': list(states['decades'].value())
+            'Count': list(states['decades'].value()
         })
         fig_decades = px.line(
             decades_df,
@@ -359,11 +350,11 @@ def create_visulation(states):
                 with col1:
                    if st.button(f"Remove", key=f"remove_{i}", use_container_width=True):
                        if remove_book(i):
-                           st.rerun
+                           st.rerun()
                 with col2:
                     new_status = not book['read_status']
-                    status_label = "Mark as read" if not book[read_status] else "Mark as Unread"
-                    if st.butto(status_label, key=f"status_{i}", use_container_width=True):
+                    status_label = "Mark as read" if not book['read_status'] else "Mark as Unread"
+                    if st.button(status_label, key=f"status_{i}", use_container_width=True):
                         st.session_state.library[i]['read_status'] = new_status
                         save_library()
                         st.rerun()
