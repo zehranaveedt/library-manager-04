@@ -3,7 +3,7 @@ import pandas as pd
 import json
 import os
 import datetime 
-import datetime
+import datetime from datetime import datetime
 import time
 import random
 import plotly.express as px
@@ -185,7 +185,8 @@ def search_books(search_term, search_by):
 #calculate library states
 def get_library_states():
     total_books = len(st.session_state.library)
-    read_books = sum(1 for book in st.session_state.library if book['read status'])
+    read_books = sum(1 for book in st.session_state.library if book['read_status'])
+
     percent_read =(read_books / total_books * 100) if total_books > 0 else 0
 
     genres = {}
@@ -273,7 +274,7 @@ def create_visulation(states):
             x='Decade',
             y='Count',
             markers=True,
-            line_sape="spline"
+            line_shape="spline"
         )
         fig_genres.update_layout(
             title_text='Book by publication decade',
@@ -347,9 +348,9 @@ def create_visulation(states):
                     with cols[i % 2]:
                         st.markdown(f"""<div class= 'book-cart'>
                                     <h3>{book['title']}</h3>
-                                    <p><strong>Author:</srong> {book['author']}</p>
-                                    <p><strong>Publication Year:</srong> {book['publication_year']}</p>
-                                    <p><strong>Genre:</srong> {book['genre']}</p>
+                                    <p><strong>Author:</strong> {book['author']}</p>
+                                    <p><strong>Publication Year:</strong> {book['publication_year']}</p>
+                                    <p><strong>Genre:</strong> {book['genre']}</p>
                                     <p><span class='{"read-badge" if book["read_status"] else "unread-badge"}'>{
                                         "Read" if book["read_status"] else "Unread"
                                         }</span></p>
