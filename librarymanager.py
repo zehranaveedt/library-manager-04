@@ -256,8 +256,8 @@ def create_visulation(states):
         st.plotly_chart(fig_genres, use_container_width=True)
     if states['decades']:
         decades_df = pd.DataFrame({
-            'Decade': [f"{decade}s " for decade in states['decades'].keys()],
-            'Count': list(states['decades'].value()
+            'Decade': [f"{decade}s" for decade in states['decades'].keys()],
+            'Count': list(states['decades'].values())
         })
         fig_decades = px.line(
             decades_df,
