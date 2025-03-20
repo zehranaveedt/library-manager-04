@@ -172,8 +172,8 @@ def search_books(search_term, search_by):
              results.append(book)
     st.session_state.search_results = results
 
-#calculate library states
-def get_library_states():
+#calculate library stats
+def get_library_stats():
     total_books = len(st.session_state.library)
     read_books = sum(1 for book in st.session_state.library if book['read_status'])
 
@@ -220,11 +220,11 @@ def get_library_states():
              
         }
     
-def create_visulation(states):
-    if states['total_books'] > 0:
+def create_visulation(stats):
+    if stats['total_books'] > 0:
         fig_read_status = go.Figure(data=[go.Pie(
             labels=['Read' , 'Unread'],
-            values=[states['read_books'], states['total_books'] - states['read_books']],
+            values=[stats['read_books'], stats['total_books'] - stats['read_books']],
             hole=.4,
             marker_colors=['#10B981' , '#F87171']
         )])
@@ -235,10 +235,10 @@ def create_visulation(states):
         )
         st.plotly_chart(fig_read_status, use_container_width=True)
     #bar chart geners
-    if states['genres']:
+    if stats['genres']:
         genres_df = pd.DataFrame({
-            'Genre': list(states['genres'].keys()),
-            'Count': list(states['genres'].values())
+            'Genre': list(stats['genres'].keys()),
+            'Count': list(stats['genres'].values())
         })
         fig_genres = px.bar(
             genres_df,
@@ -254,10 +254,10 @@ def create_visulation(states):
             height=400
         )
         st.plotly_chart(fig_genres, use_container_width=True)
-    if states['decades']:
+    if stats['decades']:
         decades_df = pd.DataFrame({
-            'Decade': [f"{decade}s" for decade in states['decades'].keys()],
-            'Count': list(states['decades'].values())
+            'Decade': [f"{decade}s" for decade in stats['decades'].keys()],
+            'Count': list(stats['decades'].values())
         })
         fig_decades = px.line(
             decades_df,
@@ -395,7 +395,7 @@ def create_visulation(states):
                     if not st.session_state.library:
                         st.markdown("<div class='warning-message'> Your library is empty. Add some books to see stats!</div>", unsafe_allow_html=True)
                     else:
-                        stats = get_library_states()
+                        stats = get_library_stats()
                         col1,col2,col3 = st. columns(3)
                         with col1:
                             st.metric("Total Books", stats['total_books'])
