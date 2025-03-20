@@ -272,7 +272,7 @@ def create_visulation(states):
             decades_df,
             x='Decade',
             y='Count',
-            markers=True
+            markers=True,
             line_sape="spline"
         )
         fig_genres.update_layout(
