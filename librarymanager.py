@@ -72,7 +72,7 @@ def display_all_books(library):
 def display_statistics(library):
     st.subheader("Statistics")
     total_books = len(library)
-    read_books = len([book for book in library if book['read']])
+    read_books = len([book for book in library if book['read_status']])
     percentage_read = (read_books / total_books) * 100 if total_books > 0 else 0
 
     st.metric("Total Books", total_books)
