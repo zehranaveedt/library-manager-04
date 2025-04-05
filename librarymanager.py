@@ -64,7 +64,7 @@ def display_all_books(library):
     st.subheader("All Books")
     if library:
         for book in library:
-            status = "Read" if book['read'] else "Unread"
+            status = "Read" if book['read_status'] else "Unread"
             st.write(f"📘 **{book['title']}** by *{book['author']}* - {book['year']} - {book['genre']} - **{status}**")
     else:
         st.info("The library is empty.")
