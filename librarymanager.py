@@ -59,15 +59,14 @@ def search_library(library):
                 st.write(f"📖 **{book['title']}** by *{book['author']}* - {book['year']} - {book['genre']} - **{status}**")
         else:
             st.warning("No matching books found!")
-
+            
 def display_all_books(library):
-    st.subheader("All Books")
     if library:
         for book in library:
             status = "Read" if book['read_status'] else "Unread"
-            st.write(f"📘 **{book['title']}** by *{book['author']}* - {book['year']} - {book['genre']} - **{status}**")
+            st.write(f"📘 **{book['title']}** by *{book['author']}* - {book['publication_year']} - {book['genre']} - **{status}**")
     else:
-        st.info("The library is empty.")
+        st.write("The library is empty.")
 
 def display_statistics(library):
     st.subheader("Statistics")
